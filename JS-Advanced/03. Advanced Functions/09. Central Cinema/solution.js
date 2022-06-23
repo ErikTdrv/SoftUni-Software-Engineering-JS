@@ -13,9 +13,7 @@ function solve() {
     clearElement.addEventListener('click', (e) => {
 
             let elements = Array.from(ulElement2.children)
-            if(elements.length > 1){
-                
-                
+            if(elements.length > 1){  
                 for (let i = 0; i < elements.length; i++){
                     let child = elements[i]
                     
@@ -73,12 +71,13 @@ function solve() {
 
 
 
-    function creatingElements(elementToCreate, textContent, appendTo){
+    function creatingElements(elementToCreate, textContent, appendTo, classElement){
         let newElement = document.createElement(elementToCreate);
         newElement.textContent = textContent;
         if (appendTo){
             appendTo.appendChild(newElement);
         }
+        
         return newElement
     }
 
