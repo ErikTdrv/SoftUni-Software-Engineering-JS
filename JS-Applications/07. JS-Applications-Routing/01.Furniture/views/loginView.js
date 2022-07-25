@@ -55,7 +55,7 @@ async function onSubmit(e) {
     } catch (err) {
         return alert(err.message)
     }
-    page.redirect('/')
+    page.redirect('/catalog')
     checkUser()
 
 }
