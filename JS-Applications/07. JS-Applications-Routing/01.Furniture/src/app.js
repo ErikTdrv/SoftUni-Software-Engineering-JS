@@ -4,10 +4,10 @@ import { loginView } from "../views/loginView.js";
 import {registerView } from "../views/registerView.js";
 import { loadDashboard } from "../views/dashboardView.js";
 
-window.addEventListener('load', loadDashboard)
+// window.addEventListener('load', loadDashboard)
+page('/catalog', loadDashboard)
 page('/login', loginView)
 page('/register', registerView)
-
 
 page.start()
 export function checkUser() {
