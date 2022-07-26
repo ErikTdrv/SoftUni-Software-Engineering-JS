@@ -4,6 +4,7 @@ import { loginView } from "../views/loginView.js";
 import {registerView } from "../views/registerView.js";
 import { loadDashboard } from "../views/dashboardView.js";
 import { furnitureView } from "../views/createFurnitureView.js";
+import { onDetailsClick, onEdit, publicationView } from "../views/myPublications.js";
 const logoutUrl = 'http://localhost:3030/users/logout';
 
 // window.addEventListener('load', loadDashboard)
@@ -12,6 +13,9 @@ page('/login', loginView)
 page('/register', registerView)
 page('/logout', logout)
 page('/furniture', furnitureView)
+page('/publications', publicationView)
+page('/details/:detailsId', onDetailsClick)
+page('/edit/:id', onEdit)
 
 page.start()
 export function checkUser() {
