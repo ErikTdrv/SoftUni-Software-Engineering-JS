@@ -54,7 +54,8 @@ const app = http.createServer((req, res) => {
             Location: '/'
         })
         
-    } else if (req.url == '/cats-edit/:id') {
+    } else if (req.url == '/cats-edit/:id' && req.method == 'GET') {
+        
         const content = fs.readFileSync('./views/editCat.html');
         res.writeHead(200, {
             'Content-Type': 'text/html'
