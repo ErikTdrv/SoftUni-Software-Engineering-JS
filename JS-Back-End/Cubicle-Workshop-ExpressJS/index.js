@@ -12,5 +12,8 @@ app.use('/static', express.static('static'))
 
 app.use(homeController)
 app.use('/cube', cubeController)
+app.get('*', (req, res) => {
+    res.render('404')
+})
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
