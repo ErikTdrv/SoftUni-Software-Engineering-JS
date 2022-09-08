@@ -6,17 +6,16 @@ const {createCube, getOneCube} = require('../services/cubeService')
 router.get('/create', (req, res) => {
     res.render('create');
 });
-router.post('/create', (req, res) => {
+router.post('/create', async (req, res) => {
     const cube = req.body;
-    createCube(cube.name, cube.description, cube.imageUrl, cube.difficulty)
+    await createCube(cube)
     res.redirect('/');
 })
 
 //Details route
-router.get('/details/:id', (req, res) => {
+router.get('/details/:id', async (req, res) => {
     const id = req.params.id;
-    const cube = getOneCube(id);
-    console.log(cube)
+    const cube = await getOneCube(id);
     res.render('details', { cube })
 })
 
