@@ -1,13 +1,40 @@
-    const uniqueId = require('uniqid');
-class Cube{
-    constructor(name, description, imageUrl, difficulty){
-        this._id = uniqueId();
-        this.name = name
-        this.description = description;
-        this.imageUrl = imageUrl;
-        this.difficulty = difficulty;
-    }
-    
-}
+    const mongoose = require('mongoose');
 
-module.exports = Cube
+    const cubeSchema = new mongoose.Schema({
+        name: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true,
+            maxlength: 100,
+            minlength: 5,
+        },
+        imageUrl: {
+            type: String,
+            required: true,
+            validate: {
+                validator: function(v){
+                    return /^https*/.test(v) 
+                }, 
+                message: props => `${props.value} it's not a valid URL`
+            },
+            // validate: [/^https*/, 'Invalid URL!'] // Might work
+        },
+        difficulty: {
+            type: Number,
+            required: true,
+            min: 1,
+            max: 0,
+        },
+        // TO DO:
+        // accessories: {
+
+        // }
+        
+    })
+
+    const Cube = new mongoose.model('Cube', cubeSchema)
+
+    module.exports = Cube;
