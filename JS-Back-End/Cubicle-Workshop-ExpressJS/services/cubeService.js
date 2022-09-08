@@ -1,19 +1,16 @@
-const Cube = require('../models/Cube');
-const db = require('../config/db.json');
+const Cube = require('../models/Cube')
 
-const createCube = (name, description, imageUrl, difficulty) => {
-    const cube = new Cube(name, description, imageUrl, difficulty)
-    console.log('db', cube)
-    db.push(cube)
+const createCube = async (cube) => {
+    console.log(cube)
+    return await Cube.create(cube)
 }
 
-const getAllCubes = () => {
-    return db.slice()
+const getAllCubes = async () => {
+    return await Cube.find({}).lean()
 }
 
-const getOneCube = (_id) => {
-    const cube = db.find((cube) => cube._id == _id);
-    return cube;
+const getOneCube = async (_id) => {
+    return await Cube.findById(_id).lean()
 }
 
 module.exports = {
