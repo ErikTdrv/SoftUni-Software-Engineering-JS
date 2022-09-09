@@ -11,9 +11,6 @@ function aboutController(req, res){
 }
 
 
-router.get('/', homeController)
-router.get('/about', aboutController)
-
-
-
-module.exports = router
+module.exports = {
+    homeController, aboutController
+}
