@@ -6,6 +6,7 @@ const {createCube, getOneCube} = require('../services/cubeService')
 router.get('/create', (req, res) => {
     res.render('create');
 });
+
 router.post('/create', async (req, res) => {
     const cube = req.body;
     await createCube(cube)
