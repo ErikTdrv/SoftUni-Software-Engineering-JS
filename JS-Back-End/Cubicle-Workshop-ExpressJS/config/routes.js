@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const {homeController, aboutController} = require('../controllers/homeController')
 const {createCube, getOneCube} = require('../services/cubeService')
+
+
+//Home route
+router.get('/', homeController)
+
+//About route
+router.get('/about', aboutController)
 
 // Create route
 router.get('/create', (req, res) => {
@@ -20,6 +28,11 @@ router.get('/details/:id', async (req, res) => {
     res.render('details', { cube })
 })
 
+router.get('/search', async (req, res) => {
+    const body = req.body
+    console.log(body)
+    res.end()
+})
 
 
 module.exports = router
