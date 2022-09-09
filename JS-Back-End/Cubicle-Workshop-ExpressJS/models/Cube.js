@@ -26,7 +26,7 @@
             type: Number,
             required: true,
             min: 1,
-            max: 0,
+            max: 6,
         },
         // TO DO:
         // accessories: {
