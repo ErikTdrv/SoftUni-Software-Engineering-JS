@@ -28,9 +28,12 @@
             min: 1,
             max: 6,
         },
-        accessories: {
-            type: Array,
-        }
+        accessories: [
+            {
+                type: mongoose.Types.ObjectId,
+                ref: 'Accessory',
+            }
+        ]
         
     })
 
