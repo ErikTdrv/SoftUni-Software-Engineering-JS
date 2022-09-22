@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { homeController, aboutController } = require('../controllers/homeController');
+const Cube = require('../models/Cube');
 const { createAccessory, getAllAccessories } = require('../services/accessoryService');
 const { createCube, getOneCube } = require('../services/cubeService')
 
@@ -35,11 +36,16 @@ router.get('/accessory/attach/:id', async (req, res) => {
     const cubeId = req.params.id;
     const cube = await getOneCube(cubeId)
     const accessories = await getAllAccessories()
-    console.log(accessories)
     res.render('accessory/attach', { cube, accessories});
 })
-// router.post('/accessory/attach/:id', () => {
 
+// router.post('/accessory/attach/:id', (req, res) => {
+//     const cubeId = req.params;
+//     console.log(cubeId)
+// // //     // const cube = await getOneCube(cubeId);
+// // //     // console.log(res.body)
+// // //     // Cube.updateOne({ _id: cubeId}, {$push: { accessories: []}})
+//     res.redirect('/')
 // })
 
 //Details route
