@@ -1,0 +1,11 @@
+<main>
+      <h1>{{cube.name}}</h1>
+      <img class="cube" src={{cube.imageUrl}}>
+      <div class="details">
+        <label for="accessory">Difficulty</label>
+          <select id="accessory" name="accessory">
+            {{accessories.map((e) => <option value="1">${e}</option>)}}
+          </select>
+        <a class="btn" href="/accessory/attach">Attach</a>
+      </div>
+    </main>
