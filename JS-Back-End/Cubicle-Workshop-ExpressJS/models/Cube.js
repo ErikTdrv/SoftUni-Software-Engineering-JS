@@ -28,10 +28,9 @@
             min: 1,
             max: 6,
         },
-        // TO DO:
-        // accessories: {
-
-        // }
+        accessories: {
+            type: Array,
+        }
         
     })
 
