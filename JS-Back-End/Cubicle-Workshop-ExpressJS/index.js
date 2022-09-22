@@ -5,7 +5,7 @@ const app = express();
 const PORT = 5000;
 
 require('./config/handlebars')(app);
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({extended: true}))
 
 app.use('/static', express.static('static'))
 app.use(routes)
