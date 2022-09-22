@@ -9,7 +9,7 @@ const getAllCubes = async () => {
 }
 
 const getOneCube = async (_id) => {
-    return await Cube.findById(_id).lean()
+    return await Cube.findById(_id).populate('accessories').lean()
 }
 
 module.exports = {
