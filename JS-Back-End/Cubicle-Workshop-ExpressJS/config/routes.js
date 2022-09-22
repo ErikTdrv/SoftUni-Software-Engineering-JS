@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {homeController, aboutController} = require('../controllers/homeController');
-const { createAccessory } = require('../services/accessoryService');
-const {createCube, getOneCube} = require('../services/cubeService')
+const { homeController, aboutController } = require('../controllers/homeController');
+const { createAccessory, getAllAccessories } = require('../services/accessoryService');
+const { createCube, getOneCube } = require('../services/cubeService')
 
 
 //Home route
@@ -31,8 +31,12 @@ router.post('/accessory/create', async (req, res) => {
     await createAccessory(accessory);
     res.redirect('/')
 })
-router.get('/accessory/attach/:id', (req, res) => {
-    res.render('accessory/attach');
+router.get('/accessory/attach/:id', async (req, res) => {
+    const cubeId = req.params.id;
+    const cube = await getOneCube(cubeId)
+    const accessories = await getAllAccessories()
+    console.log(accessories)
+    res.render('accessory/attach', { cube, accessories});
 })
 // router.post('/accessory/attach/:id', () => {
 
