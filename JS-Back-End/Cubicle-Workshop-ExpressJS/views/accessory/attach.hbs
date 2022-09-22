@@ -1,11 +1,12 @@
 <main>
-      <h1>{{cube.name}}</h1>
+        <h1>Attach Accessory</h1>
+      <h2>{{cube.name}}</h2>
       <img class="cube" src={{cube.imageUrl}}>
-      <div class="details">
-        <label for="accessory">Difficulty</label>
+        <label for="accessory">Accessories to attach:</label>
           <select id="accessory" name="accessory">
-            {{accessories.map((e) => <option value="1">${e}</option>)}}
+            {{#each accessories}}
+            <option>{{this.name}}</option>
+            {{/each}}
           </select>
         <a class="btn" href="/accessory/attach">Attach</a>
-      </div>
     </main>
