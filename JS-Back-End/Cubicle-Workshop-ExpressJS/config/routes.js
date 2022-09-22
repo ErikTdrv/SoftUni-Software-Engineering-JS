@@ -11,18 +11,18 @@ router.get('/', homeController)
 router.get('/about', aboutController)
 
 // Create route
-router.get('/create', (req, res) => {
+router.get('/cube/create', (req, res) => {
     res.render('create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/cube/create', async (req, res) => {
     const cube = req.body;
     await createCube(cube)
     res.redirect('/');
 })
 
 //Details route
-router.get('/details/:id', async (req, res) => {
+router.get('/cube/details/:id', async (req, res) => {
     const id = req.params.id;
     const cube = await getOneCube(id);
     res.render('details', { cube })
