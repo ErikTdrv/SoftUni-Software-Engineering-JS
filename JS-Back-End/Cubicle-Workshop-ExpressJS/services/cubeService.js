@@ -1,7 +1,6 @@
 const Cube = require('../models/Cube')
 
 const createCube = async (cube) => {
-    console.log(cube)
     return await Cube.create(cube)
 }
 
