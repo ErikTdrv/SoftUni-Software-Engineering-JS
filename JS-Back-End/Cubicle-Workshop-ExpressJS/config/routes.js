@@ -21,6 +21,14 @@ router.post('/cube/create', async (req, res) => {
     res.redirect('/');
 })
 
+//Accessory routes
+router.get('/accessory/create', (req, res) => {
+    res.render('accessory/create')
+})
+router.get('/accessory/attach/:id', (req, res) => {
+    res.render('accessory/attach');
+})
+
 //Details route
 router.get('/cube/details/:id', async (req, res) => {
     const id = req.params.id;
