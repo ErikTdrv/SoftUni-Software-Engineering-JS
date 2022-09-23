@@ -3,8 +3,8 @@ const router = express.Router();
 const { homeController, aboutController } = require('../controllers/homeController');
 const Accessory = require('../models/Accessory');
 const Cube = require('../models/Cube');
-const { createAccessory, getAllAccessories, attachAccessory} = require('../services/accessoryService');
-const { createCube, getOneCube } = require('../services/cubeService')
+const { createAccessory, getAllAccessories, attachAccessory, getAllWithout} = require('../services/accessoryService');
+const { createCube, getOneCube, search } = require('../services/cubeService')
 
 
 //Home route
@@ -36,7 +36,8 @@ router.post('/accessory/create', async (req, res) => {
 router.get('/accessory/attach/:id', async (req, res) => {
     const cubeId = req.params.id;
     const cube = await getOneCube(cubeId)
-    const accessories = await getAllAccessories()
+    const accessoriesArr = cube.accessories?.map((e) => e._id);
+    const accessories = await getAllWithout(accessoriesArr);
     res.render('accessory/attach', { cube, accessories});
 })
 
@@ -52,15 +53,19 @@ router.get('/cube/details/:id', async (req, res) => {
     const id = req.params.id;
     const cube = await getOneCube(id);
     const accessories = cube.accessories;
-    console.log(cube)
     res.render('details', { cube, accessories })
 })
 
+
+//Search functionality
 router.get('/search', async (req, res) => {
-    const body = req.body
-    console.log(body)
-    res.end()
+    const body = req.query;
+    const cubes = await search(body.search, body.from, body.to);
+    res.render('index', { cubes, 
+    title: 'Search',
+'search': body.search, 'from': body.from, 'to': body.to})
 })
+
 
 
 module.exports = router
