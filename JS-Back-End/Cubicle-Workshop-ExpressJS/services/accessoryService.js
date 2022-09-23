@@ -14,9 +14,12 @@ const attachAccessory = async (cubeId, accessoryId) => {
     return cube.save()
     //Cube.updateOne({ _id: cubeId}, {$push: { accessories: []}})
 }
-
+const getAllWithout = async (cubeAccessoriesId) => {
+    return Accessory.find().where('_id').nin(cubeAccessoriesId).lean();
+}
 
 module.exports = {
+    getAllWithout,
     attachAccessory,
     createAccessory,
     getAllAccessories
