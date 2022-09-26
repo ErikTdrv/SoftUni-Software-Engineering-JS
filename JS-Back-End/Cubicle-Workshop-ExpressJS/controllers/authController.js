@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
-const { registerUser, checkForUser } = require('../services/authService');
+const { registerUser, checkForUser, createToken } = require('../services/authService');
 const router = express.Router()
 
 //Register routes
@@ -23,8 +23,11 @@ router.get('/login', (req, res) => {
 })
 router.post('/login', async (req, res) => {
         const { username, password } = req.body;
-        const isValid = await checkForUser(username, password);
-        if(isValid){
+        const user = await checkForUser(username, password);
+        let code;
+        if(user){
+            const token = await createToken(user)
+            console.log(token)
             res.redirect('/')
         }else {
             res.status(400).send('Invalid username or password')

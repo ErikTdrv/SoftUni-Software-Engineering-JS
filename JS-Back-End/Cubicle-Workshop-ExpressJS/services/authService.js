@@ -1,5 +1,6 @@
 const User = require("../models/User")
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const registerUser = async (username, password) => {
     await User.create({username, password})
@@ -18,7 +19,25 @@ const checkForUser = async (username, password) => {
     }
 }
 
+const createToken = (user) => {
+    const payload = {
+        _id: user._id,
+        username: user.username,
+    }
+    
+    return new Promise((resolve, reject) => {
+        jwt.sign(payload, 'ASDPI-93KLASJD02', function(err, token){
+            if(err){
+                reject(err)
+            }else {
+                resolve(token)
+            }
+        })
+    })
+}
+
 module.exports = {
     registerUser,
-    checkForUser
+    checkForUser,
+    createToken
 }
