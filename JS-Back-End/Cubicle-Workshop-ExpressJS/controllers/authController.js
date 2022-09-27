@@ -24,10 +24,11 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
         const { username, password } = req.body;
         const user = await checkForUser(username, password);
-        let code;
         if(user){
             const token = await createToken(user)
-            console.log(token)
+            res.cookie('app_token', token, {
+                httpOnly: true,
+            })
             res.redirect('/')
         }else {
             res.status(400).send('Invalid username or password')
