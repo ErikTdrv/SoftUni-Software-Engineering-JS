@@ -1,3 +1,4 @@
+const { calculateObjectSize } = require('bson')
 const Cube = require('../models/Cube')
 
 const createCube = async (cube) => {
@@ -25,7 +26,13 @@ const search = async (text, from, to) => {
     return cubes;
 }
 
+const editCube = async (id, body) => {
+    let { name, description, imageUrl, difficultyLevel } = body;
+    return Cube.findByIdAndUpdate(id, {name, description, imageUrl, 'difficulty': difficultyLevel})
+}
+
 module.exports = {
+    editCube,
     search,
     createCube,
     getAllCubes,
