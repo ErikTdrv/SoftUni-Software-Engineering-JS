@@ -30,8 +30,16 @@ const editCube = async (id, body) => {
     let { name, description, imageUrl, difficultyLevel } = body;
     return Cube.findByIdAndUpdate(id, {name, description, imageUrl, 'difficulty': difficultyLevel})
 }
+const deleteCube = (id) => {
+    Cube.findByIdAndDelete(id, (err) => {
+        if(err){
+            console.log(err)
+        }
+    })
+}
 
 module.exports = {
+    deleteCube,
     editCube,
     search,
     createCube,
