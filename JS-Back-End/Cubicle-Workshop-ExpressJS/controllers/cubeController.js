@@ -21,4 +21,19 @@ router.get('/details/:id', async (req, res) => {
     res.render('details', { cube, accessories })
 })
 
+//Edit
+router.get('/details/edit/:id', async (req, res) => {
+    const id = req.params.id;
+    const cube = await getOneCube(id);
+    console.log(cube)
+    res.render('editCubePage', { cube })
+})
+
+//Delete
+router.get('/details/delete/:id', async (req, res) => {
+    const id = req.params.id;
+    const cube = await getOneCube(id);
+    res.render('deleteCubePage', { cube })
+})
+
 module.exports = router;
