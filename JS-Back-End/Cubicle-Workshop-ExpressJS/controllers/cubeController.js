@@ -1,7 +1,7 @@
 const express = require('express');
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router()
-const { createCube, getOneCube, editCube } = require("../services/cubeService");
+const { createCube, getOneCube, editCube, deleteCube } = require("../services/cubeService");
 
 // Create route
 router.get('/create', (req, res) => {
@@ -38,6 +38,11 @@ router.get('/details/delete/:id', async (req, res) => {
     const id = req.params.id;
     const cube = await getOneCube(id);
     res.render('deleteCubePage', { cube })
+})
+router.post('/details/delete/:id', (req, res) => {
+    const id = req.params.id;
+    deleteCube(id)
+    res.redirect('/')
 })
 
 module.exports = router;
