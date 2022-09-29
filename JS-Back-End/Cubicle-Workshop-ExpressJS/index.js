@@ -11,9 +11,6 @@ app.use(express.urlencoded({extended: true}))
 app.use('/static', express.static('static'))
 app.use(cookieParser())
 app.use(routes)
-app.get('*', (req, res) => {
-    res.render('404')
-})
 
 //Set database and run server
 initDatabase()
@@ -23,5 +20,3 @@ initDatabase()
 .catch(err => {
     console.log(`Application init failed: ${err}`)
 })
-
-// TO DO: Search 
