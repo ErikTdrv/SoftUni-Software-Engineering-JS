@@ -25,8 +25,8 @@ router.get('/search', async (req, res) => {
 })
 
 //Error page
-router.get('*', (req, res) => {
-    res.render('404')
-})
+// router.get('*', (req, res) => {
+//     res.render('404')
+// })
 
 module.exports = router;
