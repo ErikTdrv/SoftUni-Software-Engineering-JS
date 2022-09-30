@@ -4,12 +4,14 @@
         name: {
             type: String,
             required: true,
+            minlength: [5, 'Should consist at least 5 characters!'],
+            validate: [/^[A-Za-z0-9\s]+$/, 'Name should consist only of English letters, digits and whitespaces!'],
         },
         description: {
             type: String,
             required: true,
-            maxlength: 100,
-            minlength: 5,
+            minlength: 20,
+            validate: [/^[A-Za-z0-9\s]+$/, 'Description should consist only of English letters, digits and whitespaces!'],
         },
         imageUrl: {
             type: String,
