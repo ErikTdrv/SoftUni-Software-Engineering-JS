@@ -23,7 +23,8 @@ router.get('/details/:id', async (req, res) => {
     const id = req.params.id;
     const cube = await getOneCube(id);
     const accessories = cube.accessories;
-    res.render('details', { cube, accessories })
+    const isOwn = req.user._id == cube.creator;
+    res.render('details', { cube, accessories, isOwn })
 })
 
 //Edit
