@@ -1,6 +1,7 @@
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const initDatabase = require('./config/database');
+const authMiddleware = require('./middleware/authMiddleware');
 const routes = require('./routes')
 const app = express();
 const PORT = 5000;
@@ -10,6 +11,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.use('/static', express.static('static'))
 app.use(cookieParser())
+app.use(authMiddleware)
 app.use(routes)
 
 //Set database and run server
