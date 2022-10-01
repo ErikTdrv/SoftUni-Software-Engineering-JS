@@ -13,6 +13,11 @@ router.use('/cube', cubeController)
 router.use('/accessory', accessoryController)
 //Auth routes
 router.use(authController)
+//Error page
+router.get('*', (req, res) => {
+    res.render('404')
+})
+
 
 
 module.exports = router
