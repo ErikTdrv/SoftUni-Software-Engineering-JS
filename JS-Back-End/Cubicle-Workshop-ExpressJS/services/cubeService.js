@@ -1,8 +1,9 @@
 const { calculateObjectSize } = require('bson')
 const Cube = require('../models/Cube')
 
-const createCube = async (cube) => {
-    return await Cube.create(cube)
+const createCube = async (cube, creator) => {
+    const { name, description, imageUrl, difficulty, accessories} = cube
+    return await Cube.create({name, description, imageUrl, difficulty, accessories, creator})
 }
 
 const getAllCubes = async () => {
