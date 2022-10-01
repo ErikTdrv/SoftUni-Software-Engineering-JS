@@ -36,10 +36,10 @@ router.post('/login', async (req, res) => {
             })
             res.redirect('/')
         } else {
-            res.status(400).send('Invalid username or password')
+            throw new Error('Invalid username or password!')
         }
     }catch(err){
-        // return res.status(400).render('auth/loginPage', { error: error.message })
+        return res.status(400).render('auth/loginPage', { error: err.message })
     }
 })
 //Logout route
