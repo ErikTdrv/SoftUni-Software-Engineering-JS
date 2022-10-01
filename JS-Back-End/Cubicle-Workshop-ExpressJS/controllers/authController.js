@@ -8,15 +8,15 @@ router.get('/register', (req, res) => {
     res.render('auth/registerPage')
 })
 router.post('/register', async (req, res) => {
-    try{
-        const {username, password, rePass} = req.body;
-        if(password !== rePass){
+    try {
+        const { username, password, rePass } = req.body;
+        if (password !== rePass) {
             throw new Error('Passwords must match!')
-        }else {
+        } else {
             await registerUser(username, password)
         }
-    }catch(error){
-        return res.status(400).render('auth/registerPage', { error })
+    } catch (error) {
+        return res.status(400).render('auth/registerPage', { error: error.message })
     }
     res.redirect('/login');
 })
@@ -26,17 +26,26 @@ router.get('/login', (req, res) => {
     res.render('auth/loginPage')
 })
 router.post('/login', async (req, res) => {
-        const { username, password } = req.body;
-        const user = await checkForUser(username, password);
-        if(user){
+    const { username, password } = req.body;
+    const user = await checkForUser(username, password);
+    try{
+        if (user) {
             const token = await createToken(user)
             res.cookie('app_token', token, {
                 httpOnly: true,
             })
             res.redirect('/')
-        }else {
+        } else {
             res.status(400).send('Invalid username or password')
         }
+    }catch(err){
+        // return res.status(400).render('auth/loginPage', { error: error.message })
+    }
+})
+//Logout route
+router.get('/logout', (req, res) => {
+    res.clearCookie('app_token');
+    res.redirect('/')
 })
 
 
