@@ -9,9 +9,14 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', authMiddleware ,async (req, res) => {
-    const cube = req.body;
-    await createCube(cube)
-    res.redirect('/');
+    try{
+        const cube = req.body;
+        const id = req.user._id;
+        await createCube(cube, id)
+        res.redirect('/'); 
+    }catch(err){
+        res.status(401).render('create', {error: err.message})
+    }
 })
 //Details route
 router.get('/details/:id', async (req, res) => {
@@ -29,8 +34,12 @@ router.get('/details/edit/:id', async (req, res) => {
     res.render('editCubePage', { cube })
 })
 router.post('/details/edit/:id', async (req, res) => {
-    await editCube(req.params.id, req.body)
-    res.redirect(`/cube/details/${req.params.id}`)
+    try {
+        await editCube(req.params.id, req.body)
+        res.redirect(`/cube/details/${req.params.id}`)
+    } catch (err) {
+        res.status(401).render('create', {error: err.message})
+    }
 })
 
 //Delete
