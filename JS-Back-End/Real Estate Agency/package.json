@@ -1,0 +1,21 @@
+{
+  "name": "real-estate-agency",
+  "version": "1.0.0",
+  "description": "Academy project with given only HTML & CSS files",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Erik Todorov",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.4",
+    "nodemon": "^2.0.20"
+  }
+}
