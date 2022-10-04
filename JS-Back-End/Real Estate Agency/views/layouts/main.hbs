@@ -24,13 +24,14 @@
             <ul>
                 <!-- Guest users and Logged users -->
                 <li><a href="#">Housing for rent</a></li>
-                <!-- Guest users -->
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
-                <!-- Logged users -->
+                {{#if user}}
                 <li><a href="#">Create offer</a></li>
                 <li><a href="#">Search</a></li>
                 <li><a href="#">Logout</a></li>
+                {{else}}
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+                {{/if}}
             </ul>
         </nav>
         {{{body}}}
