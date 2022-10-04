@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Catalog</title>
-    <link href="./static/css/style.css" type="text/css" rel="stylesheet">
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -14,26 +14,28 @@
         <!-- In case of error, you should display div with class "errorContainer" -->
         <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
         <!--
-        <div>
-            <div class="errorContainer">
-                <p>Error</p>
-            </div>
-        </div>-->
         <nav>
             <a href="#">Home</a>
             <ul>
                 <!-- Guest users and Logged users -->
-                <li><a href="#">Housing for rent</a></li>
+                <li><a href="/">Housing for rent</a></li>
                 {{#if user}}
-                <li><a href="#">Create offer</a></li>
-                <li><a href="#">Search</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="/create">Create offer</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/logout">Logout</a></li>
                 {{else}}
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Login</a></li>
+                <li><a href="/register">Register</a></li>
+                <li><a href="/login">Login</a></li>
                 {{/if}}
             </ul>
         </nav>
+        {{#if error}}
+        <div>
+            <div class="errorContainer">
+                <p>Error</p>
+            </div>
+        </div>
+        {{/if}}
         {{{body}}}
         <footer>
             © 2021
