@@ -1,10 +1,11 @@
 const express = require('express');
-const { createHouse } = require('../services/houseService');
+const { createHouse, getLast3Houses } = require('../services/houseService');
 const router = express.Router();
 
 //Home
-router.get('/', (req, res) => {
-
+router.get('/', async (req, res) => {
+    const houses = await getLast3Houses()
+    res.render('home', { houses })
 })
 
 //Create house
@@ -16,7 +17,7 @@ router.post('/create', async (req, res) => {
         const userId = req.user._id;
         const {name, type, year, city, imageUrl, description, pieces} = req.body;
         await createHouse(name, type, year, city, imageUrl, description, pieces, userId)
-        res.redirect('/logout')
+        res.redirect('/create')
     } catch (err) {
         return res.status(400).render('house/create', { error: err.message })
     }
