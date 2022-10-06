@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
             throw new Error('Passwords must match!')
         }
         await registerUser(name, username, password)
-        res.redirect('/')
+        res.redirect('/login')
     }catch(err){
         res.status(400).render('auth/register', {error: err.message})
     }
