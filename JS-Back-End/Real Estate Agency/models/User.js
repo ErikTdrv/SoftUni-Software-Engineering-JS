@@ -9,12 +9,12 @@ const userSchema = new mongoose.Schema({
     'username': {
         type: String,
         required: true,
-        minlength: [5, 'You should have at least 5 characters in the username!'],
+        minLength: [5, 'You should have at least 5 characters in the username!'],
     },
     'password': {
         type: String,
         required: true,
-        minlength: [4, 'You should have at least 4 characters in the password!'],
+        minLength: [4, 'You should have at least 4 characters in the password!'],
     }
 })
 
