@@ -29,15 +29,18 @@
                         <div class="product-btn">
                             <!-- Only for registered user and creator of the housing offer-->
                             {{#if isOwn}}
-                            <a href="#" class="edit">Edit</a>
-                            <a href="#" class="remove">Delete</a>
-                            {{/if}}
-                            <!-- logged in user with available pieces-->
-                            {{#if rentedBy}}
-                            <p class="alRentHome">You have already rent this home</p>
-                            {{else if user}}
+                            <a href="/details/{{house._id}}/edit" class="edit">Edit</a>
+                            <a href="/details/{{house._id}}/delete" class="remove">Delete</a>
+                            {{else if house.pieces}}
+                            {{#if user}}
                             <a href="/rent" class="rentHome">Rent a home, available {{house.pieces}} housing</a>
                             {{/if}}
+                            {{/if}}
+                            <!-- logged in user with available pieces-->
+                            {{#if alreadyRented}}
+                            <p class="alRentHome">You have already rent this home</p>
+                            {{/if}}
+                            
 
                             <!-- logged in user with no available pieces-->
                             {{#if noMoreHousing}}
