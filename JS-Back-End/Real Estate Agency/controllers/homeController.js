@@ -53,7 +53,7 @@ router.get('/rent', async (req, res) => {
 router.get('/details/:id/edit', async ( req, res) => {
     const id = req.params.id;
     const house = await getOneHouse(id);
-    res.render('house/edit', house )
+    res.render('house/edit', {house} )
 })
 router.post('/details/:id/edit', async (req, res) => {
     try {
@@ -61,8 +61,8 @@ router.post('/details/:id/edit', async (req, res) => {
         const body = req.body;
         await editHouse(id, body)
         res.redirect(`/details/${id}`)
-    } catch (error) {
-        return res.status(400).render('house/edit', { error: err.message })
+    } catch (err) {
+        res.status(400).render('house/edit', { house: req.body, error: err.message })
     }
 })
 router.get('/details/:id/delete', async (req, res) => {
