@@ -27,7 +27,9 @@ const deleteHouse = async (id) => {
 }
 const editHouse = async (id, body) => {
     let {name, type, year, city, imageUrl, description, pieces} = body;
-    return await House.findByIdAndUpdate(id, {name, type, year, city, imageUrl, description, pieces})
+    return await House.findByIdAndUpdate(id, {name, type, year, city, imageUrl, description, pieces}, {
+        runValidators: true,
+    })
 }
 module.exports = {
     editHouse,
