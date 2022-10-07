@@ -25,7 +25,12 @@ const getAllHouses = async () => {
 const deleteHouse = async (id) => {
     await House.findByIdAndDelete(id)
 }
+const editHouse = async (id, body) => {
+    let {name, type, year, city, imageUrl, description, pieces} = body;
+    return await House.findByIdAndUpdate(id, {name, type, year, city, imageUrl, description, pieces})
+}
 module.exports = {
+    editHouse,
     deleteHouse,
     getAllHouses,
     getOneHouse,
