@@ -11,10 +11,10 @@ const checkForUser = async (username, password) => {
         if(isValid){
             return user;
         }else {
-            throw { message: 'Cannot find username of password'}
+            throw new Error('Cannot find username of password')
         }
     }catch(err){
-        return err
+        throw new Error(err.message)
     }
 }
 const createToken = (user) => {
