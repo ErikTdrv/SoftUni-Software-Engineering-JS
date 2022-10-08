@@ -20,6 +20,7 @@ const checkForUser = async (username, password) => {
 const createToken = (user) => {
     const payload = {
         _id: user._id,
+        name: user.name,
         username: user.username,
     }
     const token = jwt.sign(payload, 'ASDPI-93KLASJD02')
@@ -34,7 +35,12 @@ const createToken = (user) => {
     //     })
     // })
 }
+const getUser = async (id) => {
+    const user = await User.find({_id: id}).lean()
+    return user.name
+}
 module.exports = {
+    getUser,
     createToken,
     checkForUser,
     registerUser
