@@ -1,5 +1,5 @@
 const express = require('express');
-const { createHouse, getLast3Houses, getOneHouse, getAllHouses, deleteHouse, editHouse } = require('../services/houseService');
+const { createHouse, getLast3Houses, getOneHouse, getAllHouses, deleteHouse, editHouse, rentHome } = require('../services/houseService');
 const router = express.Router();
 
 //Home
@@ -15,7 +15,7 @@ router.get('/create', (req, res) => {
 router.post('/create', async (req, res) => {
     try {
         const userId = req.user._id;
-        const {name, type, year, city, imageUrl, description, pieces} = req.body;
+        const { name, type, year, city, imageUrl, description, pieces } = req.body;
         await createHouse(name, type, year, city, imageUrl, description, pieces, userId)
     } catch (err) {
         return res.status(400).render('house/create', { error: err.message })
@@ -31,13 +31,13 @@ router.get('/details/:id', async (req, res) => {
     const userId = req.user?._id;
     const id = req.params.id;
     const house = await getOneHouse(id)
-    if(house?.pieces == 0){
+    if (house?.pieces == 0) {
         noMoreHousing = true;
     }
-    if(house?.rentedBy.includes(userId)){
+    if (house?.rentedBy.includes(userId)) {
         alreadyRented = true;
     }
-    if(house?.owner == userId){
+    if (house?.owner == userId) {
         isOwn = true;
     }
     res.render('house/details', { house, isOwn, alreadyRented, noMoreHousing })
@@ -50,10 +50,10 @@ router.get('/rent', async (req, res) => {
 })
 
 //Edit
-router.get('/details/:id/edit', async ( req, res) => {
+router.get('/details/:id/edit', async (req, res) => {
     const id = req.params.id;
     const house = await getOneHouse(id);
-    res.render('house/edit', {house} )
+    res.render('house/edit', { house })
 })
 router.post('/details/:id/edit', async (req, res) => {
     try {
@@ -78,6 +78,13 @@ router.get('/search', async (req, res) => {
 router.post('/search', async (req, res) => {
     const body = req.body.name;
     const apartments = await getOneHouse(null, body)
-    res.render('search', {apartments})
+    res.render('search', { apartments })
+})
+
+router.get('/renthome/:id', async (req, res) => {
+    const user = req.user;
+    const id = req.params.id;
+    await rentHome(id, user)
+    res.redirect(`/details/${id}`)
 })
 module.exports = router;
