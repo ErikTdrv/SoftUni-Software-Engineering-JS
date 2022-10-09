@@ -39,6 +39,7 @@ const rentHome = async (id, user) => {
         _id: user._id
     }
     const house = await House.findById(id);
+    house.pieces--
     house.rentedBy.push(rentingUser)
     house.save()
 }
