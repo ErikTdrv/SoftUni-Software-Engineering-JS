@@ -1,5 +1,5 @@
 const express = require('express');
-const { createHouse, getLast3Houses, getOneHouse, getAllHouses, deleteHouse, editHouse, rentHome } = require('../services/houseService');
+const { createHouse, getLast3Houses, getOneHouse, getAllHouses, deleteHouse, editHouse, rentHome, getRentingPeople } = require('../services/houseService');
 const router = express.Router();
 
 //Home
@@ -34,13 +34,16 @@ router.get('/details/:id', async (req, res) => {
     if (house?.pieces == 0) {
         noMoreHousing = true;
     }
-    if (house?.rentedBy.includes(userId)) {
+    if (house?.rentedBy == userId) {
         alreadyRented = true;
     }
     if (house?.owner == userId) {
         isOwn = true;
     }
-    res.render('house/details', { house, isOwn, alreadyRented, noMoreHousing })
+    //Getting names 
+    const nameArray = await getRentingPeople(id)
+    const names = await (await Promise.all(nameArray)).join(', ')
+    res.render('house/details', { house, isOwn, alreadyRented, noMoreHousing, names })
 })
 
 //Housing for rent
@@ -85,6 +88,12 @@ router.get('/renthome/:id', async (req, res) => {
     const user = req.user;
     const id = req.params.id;
     await rentHome(id, user)
+    //TO DO:
+    // const names = nameArray.map(async (name) => {
+    //     const currentName = await name
+    //     return currentName
+    // })
+    // console.log(await names)
     res.redirect(`/details/${id}`)
 })
 module.exports = router;
