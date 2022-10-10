@@ -34,17 +34,24 @@ const editHouse = async (id, body) => {
     })
 }
 const rentHome = async (id, user) => {
-    const rentingUser = {
-        name: user.name,
-        _id: user._id
-    }
     const house = await House.findById(id);
     house.pieces--
-    house.rentedBy.push(rentingUser)
+    house.rentedBy.push(user._id)
     house.save()
+    
+}
+const getRentingPeople = async (id) => {
+    const house = await House.findById(id);
+    const peopleRentingHouse = house.rentedBy
+    let nameArray = peopleRentingHouse.map(async (id) => {
+        const user = await User.findById(id)
+        return await user.name
+    })
+    return nameArray
 }
 
 module.exports = {
+    getRentingPeople,
     rentHome,
     editHouse,
     deleteHouse,
