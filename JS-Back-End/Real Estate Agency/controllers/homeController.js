@@ -1,6 +1,7 @@
 const express = require('express');
 const { createHouse, getLast3Houses, getOneHouse, getAllHouses, deleteHouse, editHouse, rentHome, getRentingPeople } = require('../services/houseService');
 const router = express.Router();
+const { isUser, isOwner } = require('../middlewares/authMiddleware')
 
 //Home
 router.get('/', async (req, res) => {
@@ -9,7 +10,7 @@ router.get('/', async (req, res) => {
 })
 
 //Create house
-router.get('/create', (req, res) => {
+router.get('/create', isUser ,(req, res) => {
     res.render('house/create')
 })
 router.post('/create', async (req, res) => {
@@ -53,7 +54,7 @@ router.get('/rent', async (req, res) => {
 })
 
 //Edit
-router.get('/details/:id/edit', async (req, res) => {
+router.get('/details/:id/edit', isOwner , async (req, res) => {
     const id = req.params.id;
     const house = await getOneHouse(id);
     res.render('house/edit', { house })
@@ -65,10 +66,13 @@ router.post('/details/:id/edit', async (req, res) => {
         await editHouse(id, body)
         res.redirect(`/details/${id}`)
     } catch (err) {
-        res.status(400).render('house/edit', { house: req.body, error: err.message })
+        const idS = req.params.id;
+        const house = req.body;
+        house['_id'] = idS;
+        res.status(400).render('house/edit', { house: req.body, error: err.message})
     }
 })
-router.get('/details/:id/delete', async (req, res) => {
+router.get('/details/:id/delete', isOwner, async (req, res) => {
     const id = req.params.id;
     await deleteHouse(id)
     res.redirect('/')
@@ -87,7 +91,9 @@ router.post('/search', async (req, res) => {
 router.get('/renthome/:id', async (req, res) => {
     const user = req.user;
     const id = req.params.id;
-    await rentHome(id, user)
+    if(user._id != id){
+        await rentHome(id, user)
+    }
     //TO DO:
     // const names = nameArray.map(async (name) => {
     //     const currentName = await name
