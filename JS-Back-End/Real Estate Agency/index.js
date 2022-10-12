@@ -1,7 +1,7 @@
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const initDatabase = require('./config/database');
-const authMiddleware = require('./middlewares/authMiddleware');
+const { authMiddleware } = require('./middlewares/authMiddleware');
 const router = require('./routes');
 const app = express();
 const PORT = 5000;
