@@ -1,4 +1,5 @@
 const express = require('express');
+const User = require('../models/User');
 const { registerUser, checkForUser, createToken } = require('../services/authService');
 const router = express.Router();
 
@@ -13,6 +14,9 @@ router.post('/register', async (req, res) => {
             throw new Error('Passwords must match!')
         }
         await registerUser(name, username, password)
+        if(User.find({username: username})){
+            throw new Error('User already registered!')
+        }
         res.redirect('/login')
     } catch (err) {
         res.status(400).render('auth/register', { error: err.message })
