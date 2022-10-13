@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BookingUni</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<nav>
+    <div>
+            <div class="notification loadingBox">
+                Loading …
+            </div>
+            <div class="notification infoBox">
+                <span>Info</span>
+            </div>
+            <div class="notification errorBox">
+                <span>Error</span>
+            </div>
+        </div>
+    <div class="left-container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/add-house">Add +</a></li>
+        </ul>
+    </div>
+    <div class="right-container">
+        <a href="" class="log-out">{{name}}</a>
+        <a href="/logout" class="log-out">Logout</a>
+        <a href="/login" class="login">Login</a>
+        <a href="/register" class="register">Register</a>
+    </div>
+</nav>
+{{{body}}}
+
+</html>
