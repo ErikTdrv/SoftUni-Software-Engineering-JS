@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>BookingUni</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-</head>
 
 <body>
 
@@ -21,7 +13,6 @@
                 <span>Error</span>
             </div>
         </div>
-
         <nav>
             <div class="left-container">
                 <ul>
@@ -32,14 +23,18 @@
             </div>
         </nav>
 
-        <section id="viewLogin">
-            <h2>Login:</h2>
-            <form id="formLogin">
+        <section id="viewRegister">
+            <h2>Create your account:</h2>
+            <form id="formRegister">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" placeholder="Email">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" placeholder="Enter your Username">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your Password">
-                <input type="submit" class="login" value="Login">
+                <input type="password" id="password" name="password" placeholder="Password">
+                <label for="rePassword">Repeat Password:</label>
+                <input type="password" id="rePassword" name="rePassword" placeholder="Repeat Password">
+                <input type="submit" class="register" value="Register">
             </form>
         </section>
 
@@ -47,5 +42,3 @@
     </div>
 
 </body>
-
-</html>
