@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-    'name': {
+    'email': {
         type: String,
         required: true,
         unique: true,
-        validate: [/^[A-Za-z0-9]+$/, 'Name should be with only English letters and digits!']
+        validate: [/^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z0-9]+$/, 'Email should be with only English letters and digits!']
     }, 
     'username': {
         type: String,
