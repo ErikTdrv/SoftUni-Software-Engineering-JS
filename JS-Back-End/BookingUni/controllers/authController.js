@@ -1,4 +1,5 @@
-const { registerUser } = require('../services/authService');
+const User = require('../models/User');
+const { registerUser, loginUser, createToken } = require('../services/authService');
 
 const router = require('express').Router();
 
@@ -8,7 +9,11 @@ const router = require('express').Router();
     router.post('/register', async (req, res) => {
         try {
             const { email, username, password, rePass } = req.body;
-            registerUser(email, username, password, rePass)
+            const user = await registerUser(email, username, password, rePass)
+            const token = await createToken(user)
+            res.cookie('token', token, {
+                httpOnly: true,
+            })
             res.redirect('/')
         } catch (error) {
             console.log(error)
