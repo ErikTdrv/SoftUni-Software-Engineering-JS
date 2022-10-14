@@ -25,10 +25,13 @@
         </ul>
     </div>
     <div class="right-container">
+        {{#if user}}
         <a href="" class="log-out">{{name}}</a>
         <a href="/logout" class="log-out">Logout</a>
+        {{else}}
         <a href="/login" class="login">Login</a>
         <a href="/register" class="register">Register</a>
+        {{/if}}
     </div>
 </nav>
 {{{body}}}
