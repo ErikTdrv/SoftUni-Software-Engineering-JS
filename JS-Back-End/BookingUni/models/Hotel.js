@@ -22,8 +22,8 @@ const hotelSchema = new mongoose.Schema({
     },
     'bookedUsers': [],
     'owner': {
-        type: String,
-        required: true,
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
     }
 })
 
