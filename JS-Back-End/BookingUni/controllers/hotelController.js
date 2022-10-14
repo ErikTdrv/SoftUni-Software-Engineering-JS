@@ -29,7 +29,7 @@ router.get('/details/:id', async (req, res) => {
     if(hotel?.bookedUsers.includes(req.user._id)){
         isBooked = true;
     }
-    res.render('hotel/details', { hotel, isOwner})
+    res.render('hotel/details', { hotel, isOwner, isBooked})
 })
 
 router.get('/book/:id', async (req, res) => {
