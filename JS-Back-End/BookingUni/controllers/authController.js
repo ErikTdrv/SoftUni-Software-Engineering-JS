@@ -17,7 +17,7 @@ const router = require('express').Router();
             })
             res.redirect('/')
         } catch (error) {
-            console.log(error)
+            res.render('auth/login', { error })
         }
     })
     //Login
@@ -34,7 +34,7 @@ const router = require('express').Router();
             })
             res.redirect('/')
         } catch (error) {
-            console.log(error)
+            res.render('auth/login', { error })
         }
     })
     //Logout
