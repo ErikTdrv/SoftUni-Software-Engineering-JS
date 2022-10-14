@@ -15,13 +15,15 @@
                 <span>Info</span>
             </div>
             <div class="notification errorBox">
-                <span>Error</span>
+                {{#if error}}
+                <span>{{error}}</span>
+                {{/if}}
             </div>
         </div>
     <div class="left-container">
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/add-house">Add +</a></li>
+            <li><a href="/add-hotel">Add +</a></li>
         </ul>
     </div>
     <div class="right-container">
