@@ -14,10 +14,11 @@ router.post('/register', async (req, res) => {
         if (password != rePass) {
             throw new Error('Passwords must match!')
         }
-        await registerUser(name, username, password)
-        if(User.find({username: username})){
+        const user = await User.find({username: username})
+        if(user.length > 0){
             throw new Error('User already registered!')
         }
+        await registerUser(name, username, password)
         res.redirect('/login')
     } catch (err) {
         res.status(400).render('auth/register', { error: err.message })
@@ -34,6 +35,7 @@ router.post('/login', async (req, res) => {
         const user = await checkForUser(username, password);
         if (user) {
             const token = await createToken(user)
+            console.log(token)
             res.cookie('token', token, {
                 httpOnly: true,
             })
