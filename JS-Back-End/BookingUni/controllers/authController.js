@@ -3,6 +3,7 @@ const { registerUser, loginUser, createToken } = require('../services/authServic
 
 const router = require('express').Router();
 
+    //Register
     router.get('/register', (req, res) => {
         res.render('auth/register')
     })
@@ -18,5 +19,27 @@ const router = require('express').Router();
         } catch (error) {
             console.log(error)
         }
+    })
+    //Login
+    router.get('/login', (req, res) => {
+        res.render('auth/login')
+    })
+    router.post('/login', async (req, res) => {
+        try {
+            const { username, password } = req.body;
+            const user = await loginUser(username, password)
+            const token = await createToken(user)
+            res.cookie('token', token, {
+                httpOnly: true,
+            })
+            res.redirect('/')
+        } catch (error) {
+            console.log(error)
+        }
+    })
+    //Logout
+    router.get('/logout', (req, res) => {
+        res.clearCookie('token');
+        res.redirect('/')
     })
 module.exports = router;
