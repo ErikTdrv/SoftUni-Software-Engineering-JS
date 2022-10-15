@@ -1,10 +1,11 @@
+const { isGuest } = require('../middlewares/authMiddleware');
 const User = require('../models/User');
 const { registerUser, loginUser, createToken } = require('../services/authService');
 
 const router = require('express').Router();
 
     //Register
-    router.get('/register', (req, res) => {
+    router.get('/register',isGuest, (req, res) => {
         res.render('auth/register')
     })
     router.post('/register', async (req, res) => {
@@ -21,7 +22,7 @@ const router = require('express').Router();
         }
     })
     //Login
-    router.get('/login', (req, res) => {
+    router.get('/login', isGuest, (req, res) => {
         res.render('auth/login')
     })
     router.post('/login', async (req, res) => {
