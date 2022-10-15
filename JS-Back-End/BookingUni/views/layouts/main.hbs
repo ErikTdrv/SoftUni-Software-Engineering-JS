@@ -16,7 +16,9 @@
             </div>
             <div class="notification errorBox">
                 {{#if error}}
-                <span>{{error}}</span>
+                {{#each error}}
+                <span>{{this}}</span>
+                {{/each}}
                 {{/if}}
             </div>
         </div>

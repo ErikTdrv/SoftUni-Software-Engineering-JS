@@ -1,4 +1,4 @@
-const { addHotel, getOneHotel, updateHotel, deleteHotel, book } = require('../services/hotelService');
+const { addHotel, getOneHotel, updateHotel, deleteHotel, book, errorValidation } = require('../services/hotelService');
 const House = require('../models/Hotel')
 const router = require('express').Router();
 const express = require('express')
@@ -17,7 +17,8 @@ router.post('/add-hotel', async (req, res) => {
         await addHotel(name, city, freeRooms, imageUrl, ownerId)
         res.redirect('/')
     } catch (error) {
-        res.render('hotel/create', { error: error.message })
+        const messages = errorValidation(error)
+        res.render('hotel/create', { error: messages})
     }
 })
 

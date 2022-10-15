@@ -37,7 +37,15 @@ const getBookedHotels = async (userId) => {
 const getOneUser = async (userId) => {
     return await User.findById(userId).lean()
 }
+const errorValidation = (error) => {
+    if (error.name == 'ValidationError'){
+        return Object.values(error.errors).map((x) => x.message)
+    }else {
+        return error.message.split('\n')
+    }
+}
 module.exports = {
+    errorValidation,
     getOneUser,
     getBookedHotels,
     book,
