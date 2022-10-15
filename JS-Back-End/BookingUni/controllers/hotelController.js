@@ -1,10 +1,13 @@
-const { addHotel, getOneHotel } = require('../services/hotelService');
+const { addHotel, getOneHotel, updateHotel, deleteHotel, book } = require('../services/hotelService');
 const House = require('../models/Hotel')
 const router = require('express').Router();
 const express = require('express')
 const mongoose = require('mongoose');
 const Hotel = require('../models/Hotel');
-router.get('/add-hotel', (req, res) => {
+const { isGuest, isUser, isUserLoginRedirect } = require('../middlewares/authMiddleware');
+
+//Add new hotel     
+router.get('/add-hotel', isUser, (req, res) => {
     res.render('hotel/create')
 })
 router.post('/add-hotel', async (req, res) => {
@@ -18,7 +21,8 @@ router.post('/add-hotel', async (req, res) => {
     }
 })
 
-router.get('/details/:id', async (req, res) => {
+//Details
+router.get('/details/:id', isUserLoginRedirect ,async (req, res) => {
     const id = req.params.id;
     const hotel = await getOneHotel(id);
     let isBooked = false;
@@ -32,12 +36,40 @@ router.get('/details/:id', async (req, res) => {
     res.render('hotel/details', { hotel, isOwner, isBooked})
 })
 
-router.get('/book/:id', async (req, res) => {
+//Booking
+router.get('/book/:id',isUser, async (req, res) => {
     const userId = req.user._id;
-    const id = req.params.id;
-    const hotel = await Hotel.findById(id);
-    hotel?.bookedUsers.push(userId)
-    await hotel.save()
+    const hotelId = req.params.id;
+    await book(hotelId, userId)
     res.redirect(`/`)
+})
+
+//Edit 
+router.get('/details/:id/edit', isUser, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const hotel = await getOneHotel(id);
+        res.render('hotel/edit', hotel)
+    } catch (error) {
+        res.render('hotel/edit', { error: error.message })
+    }
+})
+router.post('/details/:id/edit', async (req, res) => {
+    try {
+        const body = req.body;
+        const id = req.params.id;
+        await updateHotel(id, body)
+        res.redirect(`/details/${id}`)
+    } catch (error) {
+        const id = req.params.id;
+        res.render('hotel/edit', { error: error.message, _id: id })
+    }
+})
+
+//Delete
+router.get('/details/:id/delete', isGuest, async (req, res) => {
+    const id = req.params.id;
+    await deleteHotel(id)
+    res.redirect('/')
 })
 module.exports = router;
