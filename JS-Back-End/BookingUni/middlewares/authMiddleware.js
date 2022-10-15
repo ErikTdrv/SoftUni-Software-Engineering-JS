@@ -17,18 +17,24 @@ const authMiddleware = (req, res, next) => {
     });
 }
 
-// const isGuest = (req, res, next) => {
-//     if(!req.user){
-//         return next();
-//     }
-//     res.redirect('/')
-// }
-// const isUser = (req, res, next) => {
-//     if(req.user){
-//         return next()
-//     }
-//     res.redirect('/')
-// }
+const isGuest = (req, res, next) => {
+    if(!req.user){
+        return next();
+    }
+    res.redirect('/')
+}
+const isUser = (req, res, next) => {
+    if(req.user){
+        return next()
+    }
+    res.redirect('/')
+}
+const isUserLoginRedirect = (req, res, next) => {
+    if(req.user){
+        return next()
+    }
+    res.redirect('/login')
+}
 // const isOwner = async (req, res, next) => {
 //     const id = req.params.id;
 //     const house = await getOneHouse(id)
@@ -38,5 +44,8 @@ const authMiddleware = (req, res, next) => {
 //     res.redirect('/')
 // }
 module.exports = { 
+    isUserLoginRedirect,
+    isUser,
+    isGuest,
     authMiddleware,
 };
