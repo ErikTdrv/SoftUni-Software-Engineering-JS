@@ -41,6 +41,10 @@ router.get('/details/:id', isUserLoginRedirect ,async (req, res) => {
 router.get('/book/:id',isUser, async (req, res) => {
     const userId = req.user._id;
     const hotelId = req.params.id;
+    const hotel = await getOneHotel(hotelId)
+    if(hotel?.owner == userId){
+        return res.redirect('/')
+    }
     await book(hotelId, userId)
     res.redirect(`/`)
 })
