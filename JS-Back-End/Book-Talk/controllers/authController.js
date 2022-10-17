@@ -23,4 +23,13 @@ router.post('/register', async (req, res) => {
     }
 })
 
+//Login functionality
+
+
+//Logout
+router.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/')
+})
+
 module.exports = router;
