@@ -6,12 +6,12 @@ const initDatabase = require('./configs/initDatabase');
 const router = require('./routes');
 const { authMiddleware } = require('./middlewares/authMiddleware');
 
-app.use(express.urlencoded({extended: true}))
+app.use('/static', express.static('static'))
 require('./configs/initHandlebars')(app);
 app.use(cookieParser());
-app.use(router)
-app.use('/static', express.static('static'))
 app.use(authMiddleware)
+app.use(express.urlencoded({extended: true}))
+app.use(router)
 
 //Starting server and connecting database
 initDatabase()
