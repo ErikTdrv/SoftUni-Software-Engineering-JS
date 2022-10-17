@@ -41,6 +41,7 @@ const rentHome = async (id, user) => {
     
 }
 const getRentingPeople = async (id) => {
+    // 1. Get the array that shows which houses the user has rented!
     const house = await House.findById(id);
     const peopleRentingHouse = house.rentedBy
     let nameArray = peopleRentingHouse.map(async (id) => {

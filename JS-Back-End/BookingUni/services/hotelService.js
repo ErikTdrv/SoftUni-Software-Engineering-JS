@@ -22,10 +22,17 @@ const book = async (hotelId, userId) => {
     hotel?.bookedUsers.push(userId)
     hotel.freeRooms--
     await hotel.save()
-    const user = await User.findById(userId)
-    let array = user.bookedHotels
+
+    // ---- NOT WORKING
+    // //1. Get User bookedHotels array (array that shows us which hotels the user has currently rented)
+    // const user = await User.findById(userId)
+    // //2. Push the hotel name to the user's array
     // user?.bookedHotels.push(hotel.name)
+    // //3. Trying to save the user - An Error is thrown, probably because user.save() validates againg the User, but the user's password is already hashed.
     // await user.save()
+    // -------------
+    const user = await User.findById(userId);
+    let array = user.bookedHotels
     array.push(hotel.name)
     console.log(array)
     await User.findByIdAndUpdate(userId, {bookedHotels: array})
