@@ -1,4 +1,4 @@
-const { createBook, getAllBooks, getOneBook, wishOneBook, updateBook } = require('../services/bookService');
+const { createBook, getAllBooks, getOneBook, wishOneBook, updateBook, deleteBook } = require('../services/bookService');
 
 const router = require('express').Router();
 
@@ -67,5 +67,9 @@ router.post('/details/:id/edit', async (req, res) => {
         res.render('book/edit', {error: error.message, book: req.body})
     }
 })
-
+//Delete book
+router.get('/detais/:id/delete', (req, res) => {
+    const bookId = req.params.id;
+    deleteBook(bookId)
+})
 module.exports = router;

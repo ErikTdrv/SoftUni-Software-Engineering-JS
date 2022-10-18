@@ -21,7 +21,11 @@ const updateBook = async (bookId, title,author, genre, stars, review, imageUrl) 
         runValidators: true,
     })
 }
+const deleteBook = async (bookId) => {
+    await Book.findByIdAndRemove(bookId)
+}
 module.exports = {
+    deleteBook,
     updateBook,
     wishOneBook,
     getOneBook,
