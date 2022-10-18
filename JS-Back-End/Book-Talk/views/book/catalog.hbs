@@ -3,7 +3,7 @@
         <h2>Book Reviews</h2>
         <div class="container">
             <!--If there are book reviews-->
-            <div class="book">
+            {{!-- <div class="book">
                 <div class="info-container">
                     <img src="./image/Game-of-thrones.jpg">
                     <div class="info">
@@ -45,8 +45,15 @@
                 <div class="details-btn">
                     <a href="#" class="details">Details</a>
                 </div>
-            </div>
-            <!--If there are no book reviews-->
+            </div> --}}
+            {{#if books}}
+
+            {{#each books}}
+            {{> book}}
+            {{/each}}
+
+            {{else}}
             <h2 class="no-record">There are no book reviews found yet...</h2>
+            {{/if}}
         </div>
     </section>
