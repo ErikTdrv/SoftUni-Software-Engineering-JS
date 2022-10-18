@@ -1,4 +1,4 @@
-const { registerUser, createToken } = require('../services/authService');
+const { registerUser, createToken, loginUser } = require('../services/authService');
 
 const router = require('express').Router();
 
@@ -24,7 +24,21 @@ router.post('/register', async (req, res) => {
 })
 
 //Login functionality
-
+router.get('/login', (req, res) => {
+    res.render('auth/login')
+})
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const token = await loginUser(email, password)
+        res.cookie('token', token, {
+            httpOnly: true,
+        })
+        res.redirect('/')
+    } catch (error) {
+        res.render('auth/login', {error: error.message})
+    }
+})
 
 //Logout
 router.get('/logout', (req, res) => {
