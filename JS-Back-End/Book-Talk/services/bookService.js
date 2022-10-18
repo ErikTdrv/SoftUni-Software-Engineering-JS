@@ -16,7 +16,13 @@ const wishOneBook = async (bookId, userId) => {
     book.wishingList.push(userId);
     await book.save()
 }
+const updateBook = async (bookId, title,author, genre, stars, review, imageUrl) => {
+    await Book.findByIdAndUpdate(bookId, {title,author, genre, stars, review, imageUrl}, {
+        runValidators: true,
+    })
+}
 module.exports = {
+    updateBook,
     wishOneBook,
     getOneBook,
     getAllBooks,

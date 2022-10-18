@@ -1,4 +1,4 @@
-const { createBook, getAllBooks, getOneBook, wishOneBook } = require('../services/bookService');
+const { createBook, getAllBooks, getOneBook, wishOneBook, updateBook } = require('../services/bookService');
 
 const router = require('express').Router();
 
@@ -34,7 +34,7 @@ router.get('/details/:id', async (req, res) => {
     const userId = req?.user._id;
     const book = await getOneBook(bookId)
     const wished = book.wishingList.some((id) => id == userId)
-    if(bookId == userId){
+    if(book?.owner == userId){
         book.isOwner = true;
     }else if(wished){
         book.alreadyWished = true;
@@ -50,5 +50,22 @@ router.get('/details/:id/wish', async (req, res) => {
     res.redirect(`/details/${bookId}`)
 })
 
+//Edit book 
+router.get('/details/:id/edit', async (req, res) => {
+    const bookId = req.params.id;
+    const book = await getOneBook(bookId)
+    res.render('book/edit', {book})
+})
+router.post('/details/:id/edit', async (req, res) => {
+    const bookId = req.params.id;
+    const { title,author, genre, stars, review, imageUrl } = req.body;
+    try {
+        await updateBook(bookId, title,author, genre, stars, review, imageUrl)
+        res.redirect(`/details/${bookId}`)
+    } catch (error) {
+        req.body._id = bookId
+        res.render('book/edit', {error: error.message, book: req.body})
+    }
+})
 
 module.exports = router;
