@@ -1,4 +1,4 @@
-const { createBook } = require('../services/bookService');
+const { createBook, getAllBooks } = require('../services/bookService');
 
 const router = require('express').Router();
 
@@ -22,6 +22,10 @@ router.post('/create', async (req, res) => {
     }
 })
 
-
+//Catalog page
+router.get('/catalog', async (req, res) => {
+    const books = await getAllBooks();
+    res.render('book/catalog',{ books })
+})
 
 module.exports = router;
