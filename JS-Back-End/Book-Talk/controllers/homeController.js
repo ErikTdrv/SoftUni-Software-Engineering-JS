@@ -1,4 +1,4 @@
-const { createBook, getAllBooks } = require('../services/bookService');
+const { createBook, getAllBooks, getOneBook, wishOneBook } = require('../services/bookService');
 
 const router = require('express').Router();
 
@@ -27,5 +27,28 @@ router.get('/catalog', async (req, res) => {
     const books = await getAllBooks();
     res.render('book/catalog',{ books })
 })
+
+//Details page
+router.get('/details/:id', async (req, res) => {
+    const bookId = req.params.id;
+    const userId = req?.user._id;
+    const book = await getOneBook(bookId)
+    const wished = book.wishingList.some((id) => id == userId)
+    if(bookId == userId){
+        book.isOwner = true;
+    }else if(wished){
+        book.alreadyWished = true;
+    }
+    res.render('book/details', book)
+})
+
+//Wish 
+router.get('/details/:id/wish', async (req, res) => {
+    const bookId = req.params.id;
+    const userId = req.user._id;
+    await wishOneBook(bookId, userId)
+    res.redirect(`/details/${bookId}`)
+})
+
 
 module.exports = router;
