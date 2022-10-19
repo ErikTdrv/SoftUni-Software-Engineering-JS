@@ -1,9 +1,10 @@
+const { isGuest, isUser } = require('../middlewares/authMiddleware');
 const { registerUser, createToken, loginUser } = require('../services/authService');
 
 const router = require('express').Router();
 
 //Register functionality
-router.get('/register', (req, res) => {
+router.get('/register', isGuest, (req, res) => {
     res.render('auth/register');
 })
 router.post('/register', async (req, res) => {
@@ -24,7 +25,7 @@ router.post('/register', async (req, res) => {
 })
 
 //Login functionality
-router.get('/login', (req, res) => {
+router.get('/login', isGuest, (req, res) => {
     res.render('auth/login')
 })
 router.post('/login', async (req, res) => {
@@ -41,7 +42,7 @@ router.post('/login', async (req, res) => {
 })
 
 //Logout
-router.get('/logout', (req, res) => {
+router.get('/logout', isUser,(req, res) => {
     res.clearCookie('token');
     res.redirect('/')
 })

@@ -1,3 +1,4 @@
+const { isUser } = require('../middlewares/authMiddleware');
 const { createBook, getAllBooks, getOneBook, wishOneBook, updateBook, deleteBook } = require('../services/bookService');
 
 const router = require('express').Router();
@@ -8,7 +9,7 @@ router.get('/', (req, res) => {
 })
 
 //Create page
-router.get('/create', (req, res) => {
+router.get('/create',isUser, (req, res) => {
     res.render('book/create')
 })
 router.post('/create', async (req, res) => {
@@ -43,7 +44,7 @@ router.get('/details/:id', async (req, res) => {
 })
 
 //Wish 
-router.get('/details/:id/wish', async (req, res) => {
+router.get('/details/:id/wish',isUser, async (req, res) => {
     const bookId = req.params.id;
     const userId = req.user._id;
     await wishOneBook(bookId, userId)
@@ -51,7 +52,7 @@ router.get('/details/:id/wish', async (req, res) => {
 })
 
 //Edit book 
-router.get('/details/:id/edit', async (req, res) => {
+router.get('/details/:id/edit',isUser, async (req, res) => {
     const bookId = req.params.id;
     const book = await getOneBook(bookId)
     res.render('book/edit', {book})
@@ -68,7 +69,7 @@ router.post('/details/:id/edit', async (req, res) => {
     }
 })
 //Delete book
-router.get('/details/:id/delete', (req, res) => {
+router.get('/details/:id/delete',isUser, (req, res) => {
     const bookId = req.params.id;
     deleteBook(bookId)
     res.redirect('/catalog')
