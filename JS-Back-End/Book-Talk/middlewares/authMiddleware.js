@@ -17,4 +17,20 @@ function authMiddleware(req, res, next) {
     });
 }
 
-module.exports = { authMiddleware };
+function isGuest(req, res, next){
+    if(!req?.user){
+        return next()
+    }
+    res.redirect('/')
+}
+function isUser(req, res, next){
+    if(req?.user){
+        return next()
+    }
+    res.redirect('/')
+}
+
+module.exports = { 
+    isUser,
+    isGuest,
+    authMiddleware };
