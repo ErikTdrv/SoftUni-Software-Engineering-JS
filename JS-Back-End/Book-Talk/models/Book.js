@@ -5,10 +5,14 @@ const bookSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
+        minLength: [2, 'Title must have more than 2 characters!']
+
     },
     author: {
         type: String,
         required: true,
+        minLength: [5, 'Author must have more than 5 characters!']
+
     },
     imageUrl: {
         type: String,
@@ -17,10 +21,14 @@ const bookSchema = new mongoose.Schema({
     review: {
         type: String,
         required: true,
+        validate: [/^http(s?)*:\/\//, 'Invalid URL!'],
+        minLength: [10, 'Review must have more than 10 characters!']
     },
     genre: {
         type: String,
         required: true,
+        minLength: [3, 'Genre must have more than 3 characters!']
+
     },
     stars: {
         type: Number,
