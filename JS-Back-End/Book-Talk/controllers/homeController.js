@@ -68,8 +68,9 @@ router.post('/details/:id/edit', async (req, res) => {
     }
 })
 //Delete book
-router.get('/detais/:id/delete', (req, res) => {
+router.get('/details/:id/delete', (req, res) => {
     const bookId = req.params.id;
     deleteBook(bookId)
+    res.redirect('/catalog')
 })
 module.exports = router;
