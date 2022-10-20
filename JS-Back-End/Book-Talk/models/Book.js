@@ -17,11 +17,11 @@ const bookSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
         required: true,
+        validate: [/^http(s?)*:\/\//, 'Invalid URL!'],
     },
     review: {
         type: String,
         required: true,
-        validate: [/^http(s?)*:\/\//, 'Invalid URL!'],
         minLength: [10, 'Review must have more than 10 characters!']
     },
     genre: {
