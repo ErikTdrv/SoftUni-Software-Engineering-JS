@@ -32,7 +32,7 @@ router.get('/catalog', async (req, res) => {
 //Details page
 router.get('/details/:id', async (req, res) => {
     const bookId = req.params.id;
-    const userId = req?.user._id;
+    const userId = req.user?._id;
     const book = await getOneBook(bookId)
     const wished = book.wishingList.some((id) => id == userId)
     if (book?.owner == userId) {
@@ -79,7 +79,6 @@ router.get('/details/:id/delete', isUser, (req, res) => {
 router.get('/profile', isUser, async (req, res) => {
     const userId = req.user._id;
     const books = await getProfileBooks(userId)
-    console.log(req.user)
     res.render('profile', { books, user: req.user })
 })
 module.exports = router;
