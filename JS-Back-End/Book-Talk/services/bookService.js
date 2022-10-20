@@ -25,7 +25,7 @@ const deleteBook = async (bookId) => {
     await Book.findByIdAndRemove(bookId)
 }
 const getProfileBooks = async (userId) => {
-    const books = await Book.find({owner: userId}).lean()
+    const books = await Book.find({wishingList: {$all: [userId]}}).lean()
     return books
 }
 module.exports = {
