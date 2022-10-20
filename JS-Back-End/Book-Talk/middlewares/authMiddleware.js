@@ -21,13 +21,13 @@ function isGuest(req, res, next){
     if(!req?.user){
         return next()
     }
-    res.redirect('/')
+    res.render('404')
 }
 function isUser(req, res, next){
     if(req?.user){
         return next()
     }
-    res.redirect('/')
+    res.render('404')
 }
 
 module.exports = { 
