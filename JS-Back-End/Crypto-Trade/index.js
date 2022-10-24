@@ -1,18 +1,24 @@
 const express = require('express');
 const app = express();
-
+const router = require('./routes');
 const cookieParser = require('cookie-parser');
 const initDatabase = require('./configs/initDatabase');
-const router = require('./routes');
+
 
 require('./configs/initHandlebars')(app);
-app.use(cookieParser);
+app.use(express.urlencoded({extended: true}))
+
+app.use('/static', express.static('static'))
+app.use(cookieParser())
+// app.use(authMiddleware)
 app.use(router)
 
-//Starting server and connecting database
+
+//Set database and run server
 initDatabase()
 .then(() => {
-    console.log('Database connected')
-    app.listen(3000, () => console.log('Server is running on PORT 3000!'))
+    app.listen(3000, () => console.log(`Server listening on port 3000`))
 })
-.catch(err => console.log(err))
+.catch(err => {
+    console.log(`Application init failed: ${err}`)
+})
