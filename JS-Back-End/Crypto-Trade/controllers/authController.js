@@ -27,7 +27,11 @@ const router = require('express').Router();
     router.post('/login', async (req, res) => {
         const { email, password } = req.body;
         try {
-            await loginUser(email, password)
+            const token = await loginUser(email, password);
+            res.cookie('token', token, {
+                httpOnly: true,
+            })
+            res.redirect('/')
         } catch (error) {
             res.render('auth/login', { error: error.message})
         }
