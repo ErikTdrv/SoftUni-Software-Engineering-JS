@@ -3,7 +3,7 @@ const getAll = async () => {
     return await Crypto.find({}).lean()
 }
 const createCrypto = async (crypto) => {
-    await Crypto.create({crypto})
+    await Crypto.create(crypto)
 }
 
 module.exports = {
