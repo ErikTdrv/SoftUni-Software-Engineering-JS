@@ -28,6 +28,12 @@ router.post('/create', async (req, res) => {
 router.get('/details/:id', async (req, res) => {
     const cryptoId = req.params.id;
     const crypto = await getOne(cryptoId);
+    if(req.user?._id == crypto.owner){
+        crypto.isOwner = true;
+    }
+    if(crypto.buyers.includes(req.user?._id)){
+        crypto.alreadyBought = true;
+    }
     res.render('details', crypto)
 })
 module.exports = router;
