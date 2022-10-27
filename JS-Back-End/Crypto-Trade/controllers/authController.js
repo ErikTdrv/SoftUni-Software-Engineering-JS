@@ -1,4 +1,4 @@
-const { registerUser, loginUser } = require('../services/authService');
+const { registerUser, loginUser} = require('../services/authService');
 
 const router = require('express').Router();
 
@@ -35,6 +35,12 @@ const router = require('express').Router();
         } catch (error) {
             res.render('auth/login', { error: error.message})
         }
+    })
+
+    //Logout 
+    router.get('/logout', async (req, res) => {
+        res.clearCookie('token')
+        res.redirect('/')
     })
 module.exports = router;
 
