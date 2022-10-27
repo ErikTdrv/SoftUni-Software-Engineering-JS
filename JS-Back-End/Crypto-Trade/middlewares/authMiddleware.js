@@ -1,0 +1,50 @@
+const jwt = require("jsonwebtoken");
+
+const authMiddleware = (req, res, next) => {
+    const token = req.cookies['token']
+    if(!token){
+        return next();
+    }
+
+    jwt.verify(token, 'ASDHAOLDSA9P-UI2LK', function(err, decodedToken) {
+        if (err) {
+            res.status(401).redirect('/login')
+        }
+        req.user = decodedToken;
+        res.locals.user = decodedToken;
+        next();
+    });
+}
+
+const isGuest = (req, res, next) => {
+    if(!req.user){
+        return next();
+    }
+    res.redirect('/')
+}
+const isUser = (req, res, next) => {
+    if(req.user){
+        return next()
+    }
+    res.redirect('/')
+}
+const isUserLoginRedirect = (req, res, next) => {
+    if(req.user){
+        return next()
+    }
+    res.redirect('/login')
+}
+// const isOwner = async (req, res, next) => {
+//     const id = req.params.id;
+//     const house = await getOneHouse(id)
+//     if(req.user && house.owner == req.user?._id){
+//         return next()
+//     }
+//     res.redirect('/')
+// }
+module.exports = { 
+    isUserLoginRedirect,
+    isUser,
+    isGuest,
+    authMiddleware,
+};
