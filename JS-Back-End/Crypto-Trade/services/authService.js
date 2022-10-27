@@ -29,6 +29,7 @@ const createToken = async (payload) => {
     return token
 }
 
+
 module.exports = {
     loginUser,
     getOneUser,
