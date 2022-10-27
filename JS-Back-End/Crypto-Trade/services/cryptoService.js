@@ -5,8 +5,12 @@ const getAll = async () => {
 const createCrypto = async (crypto) => {
     await Crypto.create(crypto)
 }
+const getOne = async (_id) => {
+    return await Crypto.findById(_id);
+}
 
 module.exports = {
+    getOne,
     getAll,
     createCrypto
 }
