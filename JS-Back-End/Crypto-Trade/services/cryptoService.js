@@ -8,8 +8,11 @@ const createCrypto = async (crypto) => {
 const getOne = async (_id) => {
     return await Crypto.findById(_id);
 }
-
+const updateCrypto = async (_id, body) => {
+    await Crypto.findByIdAndUpdate(_id, body)
+}
 module.exports = {
+    updateCrypto,
     getOne,
     getAll,
     createCrypto
