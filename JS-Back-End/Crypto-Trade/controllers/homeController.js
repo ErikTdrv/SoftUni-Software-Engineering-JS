@@ -16,6 +16,7 @@ router.get('/create', (req, res) => {
 })
 router.post('/create', async (req, res) => {
     const crypto = req.body;
+    crypto.owner = req.user._id
     try {
         await createCrypto(crypto)
         res.redirect('/')
@@ -35,5 +36,12 @@ router.get('/details/:id', async (req, res) => {
         crypto.alreadyBought = true;
     }
     res.render('details', crypto)
+})
+
+//Edit
+router.get('/details/:id/edit', async (req, res) => {
+    const cryptoId = req.params.id;
+    const crypto = await getOne(cryptoId)
+    res.render('edit', crypto)
 })
 module.exports = router;
