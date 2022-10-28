@@ -1,4 +1,4 @@
-const { getAll, createCrypto, getOne } = require('../services/cryptoService');
+const { getAll, createCrypto, getOne, updateCrypto } = require('../services/cryptoService');
 
 const router = require('express').Router();
 
@@ -43,5 +43,15 @@ router.get('/details/:id/edit', async (req, res) => {
     const cryptoId = req.params.id;
     const crypto = await getOne(cryptoId)
     res.render('edit', crypto)
+})
+router.post('/details/:id/edit', async (req, res) => {
+    const body = req.body;
+    const _id = req.params.id;
+    try {
+        await updateCrypto(_id, body)
+    } catch (error) {
+        res.render('edit', { error: error.message})
+    }
+    res.redirect(`/details/${_id}`)
 })
 module.exports = router;
