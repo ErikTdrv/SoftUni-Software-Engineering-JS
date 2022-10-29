@@ -11,7 +11,11 @@ const getOne = async (_id) => {
 const updateCrypto = async (_id, body) => {
     await Crypto.findByIdAndUpdate(_id, body)
 }
+const deleteCrypto = async (_id) => {
+    await Crypto.findByIdAndDelete(_id)
+}
 module.exports = {
+    deleteCrypto,
     updateCrypto,
     getOne,
     getAll,
