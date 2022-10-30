@@ -1,0 +1,41 @@
+
+    <main>
+        <div class="details-container">
+            <div class="details-container-image">
+                <img src="{{imageUrl}}">
+            </div>
+            <div class="details-container-info">
+                <h2>{{title}}</h2>
+                <h3>Women's Health</h3>
+                    <h3>By: {{email}}</h3>
+                    <!--If there are followers-->
+                    {{#if people}}
+                    <h4>Follow By: {{people}}</h4>
+                    {{else}}
+                    <h4>There are no followers yet!</h4>
+                    {{/if}}
+            </div>
+            <div class="details-container-content">
+                <p>{{content}}</p>
+            </div>
+            <div class="btn-container">
+                <!-- Only for registered user and creator of the blog post-->
+                {{#if user}}
+
+                {{#if isAuthor}}
+                <a href="/details/{{_id}}/edit">Edit</a>
+                <a href="/details/{{_id}}/delete">Delete</a>
+                {{else}}
+
+                {{#if isFollowing}}
+                <p class="follow-pub">You already follow this blog!</p>
+                {{else}}
+                <a href="/details/{{_id}}/follow">Follow</a>
+                {{/if}}
+
+                {{/if}}
+
+                {{/if}}
+            </div>
+        </div>
+    </main>
