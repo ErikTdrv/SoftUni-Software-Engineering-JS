@@ -1,4 +1,4 @@
-const { getAll, createCrypto, getOne, updateCrypto, deleteCrypto } = require('../services/cryptoService');
+const { getAll, createCrypto, getOne, updateCrypto, deleteCrypto, buyCrypto } = require('../services/cryptoService');
 
 const router = require('express').Router();
 
@@ -60,5 +60,13 @@ router.get('/details/:id/delete', async (req, res) => {
     const cryptoId = req.params.id;
     await deleteCrypto(cryptoId)
     res.redirect('/')
+})
+
+//Buy
+router.get('/details/:id/buy', async (req, res) => {
+    const userId = req.user._id;
+    const cryptoId = req.params.id;
+    await buyCrypto(cryptoId, userId)
+    res.redirect(`/details/${cryptoId}`)
 })
 module.exports = router;
