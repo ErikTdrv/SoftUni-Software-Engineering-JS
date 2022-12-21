@@ -1,0 +1,46 @@
+<div class="container" *ngIf="!inUpdateMode">
+    <div class="profile"><img src="./assets/profile.png" alt="default user">
+        <h3>User Info:</h3>
+        <div class="flex">
+            <p>Username: </p>
+            <p>{{user!.username}}</p>
+        </div>
+        <div class="flex">
+            <p>Email: </p>
+            <p>{{user!.email}}</p>
+        </div>
+        <div class="flex">
+            <p>Phone: </p>
+            <p>+359 {{user!.tel}}</p>
+        </div>
+        <button (click)="inUpdateMode = true" class="edit-button">Edit</button>
+    </div>
+</div>
+
+<div class="container" *ngIf="inUpdateMode">
+    <div class="profile">
+        <img src="../../../assets/profile.png" alt="default user">
+        <h3>User Info:</h3>
+        <form #form="ngForm" method="post" (submit)="updateUser(form)">
+            <div class="flex">
+                <p>Username: </p>
+                <input  type="text" name="username" id="username" [ngModel]="user!.username" minlength="5" required>
+            </div>
+            <div class="flex">
+                <p>Email: </p>
+                <input  type="email" name="email" id="email" [ngModel]="user!.email" minlength="6" email required>
+            </div>
+            <div class="flex">
+                <p>Phone: </p>
+                <div>
+                    <select name="select-tel" id="select-tel" class="tel">
+                        <option value="00359">+359</option>
+                    </select>
+                    <input type="text" name="tel" id="tel" [ngModel]="user!.tel">
+                </div>
+            </div>
+            <button class="red-button" (click)="inUpdateMode = false">Cancel</button>
+            <button class="green-button" [disabled]="form.invalid ? true : false">Save</button>
+        </form>
+    </div>
+</div>

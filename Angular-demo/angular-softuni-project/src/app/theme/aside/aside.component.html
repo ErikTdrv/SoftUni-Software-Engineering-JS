@@ -1,0 +1,17 @@
+<aside>
+    <div class="aside">
+        <h2 class="title">
+            {{title}}
+        </h2>
+        <div *ngIf="items">
+            <div *ngFor="let item of items" class="aside-theme">
+                <a [routerLink]="['/themes', item._id]">
+                    <h3>{{item.themeName}}</h3>
+                    <p>{{item.userId.email}}</p>
+                    <p><span>{{item.created_at}}</span></p>
+                </a>
+            </div>
+        </div>
+        <div *ngIf="!items">Loading...</div>
+    </div>
+</aside>
